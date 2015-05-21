@@ -35,6 +35,7 @@ module Metacrunch
       def flush
         result = client.bulk(body: @buffer.inject([]){ |_body, _data| _body << { index: _data } })
         raise RuntimeError if result["errors"]
+        true
       ensure
         @buffer = []
       end
