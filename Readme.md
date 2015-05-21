@@ -1,0 +1,3 @@
+# metacrunch-elasticsearch
+
+Dokumentation folgt in Kürze...
