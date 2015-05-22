@@ -33,8 +33,11 @@ module Metacrunch
       end
 
       def flush
-        result = client.bulk(body: @buffer.inject([]){ |_body, _data| _body << { index: _data } })
-        raise RuntimeError if result["errors"]
+        if @buffer.length > 0
+          result = client.bulk(body: @buffer.inject([]){ |_body, _data| _body << { index: _data } })
+          raise RuntimeError if result["errors"]
+        end
+
         true
       ensure
         @buffer = []
