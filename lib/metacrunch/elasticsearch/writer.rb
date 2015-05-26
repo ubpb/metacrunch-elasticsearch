@@ -5,7 +5,7 @@ module Metacrunch
   module Elasticsearch
     class Writer
 
-      def initialize(uri, log: false, bulk_size: 250)
+      def initialize(uri, log: false, bulk_size: 250, autoflush: true)
         unless uri.starts_with?("elasticsearch://")
           raise ArgumentError, "URI must be an elasticsearch URI (elasticsearch://...)"
         end
@@ -14,6 +14,7 @@ module Metacrunch
         @log       = log
         @bulk_size = bulk_size
         @buffer    = []
+        @autoflush = autoflush
       end
 
       def write(data, options = {})
@@ -27,7 +28,7 @@ module Metacrunch
           data: data
         }
 
-        flush if @bulk_size > 0 && @buffer.length >= @bulk_size
+        flush if @autoflush && @bulk_size > 0 && @buffer.length >= @bulk_size
 
         true
       end
