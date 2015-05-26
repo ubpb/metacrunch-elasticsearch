@@ -5,7 +5,7 @@ module Metacrunch
   module Elasticsearch
     class Reader
 
-      DEFAULT_SCAN_SIZE          = 200
+      DEFAULT_SCAN_SIZE          = 250
       DEFAULT_SCROLL_EXPIRY_TIME = 10.minutes
 
 
@@ -42,6 +42,14 @@ module Metacrunch
             yield(_hit)
           end
         end
+      end
+
+      def count
+        client.count({
+          body: @body,
+          index: @uri.index,
+          type: @uri.type
+        })["count"]
       end
 
     private
