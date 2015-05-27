@@ -45,8 +45,11 @@ module Metacrunch
       end
 
       def count
+        body = @body.dup
+        body.delete(:fields)
+
         client.count({
-          body: @body,
+          body: body,
           index: @uri.index,
           type: @uri.type
         })["count"]
