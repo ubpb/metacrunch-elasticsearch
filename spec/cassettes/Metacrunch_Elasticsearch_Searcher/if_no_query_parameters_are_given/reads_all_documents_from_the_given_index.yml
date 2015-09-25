@@ -1,0 +1,84 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:9200/some_index/_search?scroll=600s&search_type=scan&size=200
+    body:
+      encoding: UTF-8
+      string: '{"query":{"match_all":{}}}'
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '350'
+    body:
+      encoding: UTF-8
+      string: '{"_scroll_id":"c2Nhbjs1OzEzMTptQk96blkzZ1FuT3NZTFZaUVhfN25BOzEzNDptQk96blkzZ1FuT3NZTFZaUVhfN25BOzEzNTptQk96blkzZ1FuT3NZTFZaUVhfN25BOzEzMjptQk96blkzZ1FuT3NZTFZaUVhfN25BOzEzMzptQk96blkzZ1FuT3NZTFZaUVhfN25BOzE7dG90YWxfaGl0czoxMjs=","took":1,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":12,"max_score":0.0,"hits":[]}}'
+    http_version: 
+  recorded_at: Wed, 12 Aug 2015 09:42:24 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/_search/scroll?scroll=600s
+    body:
+      encoding: UTF-8
+      string: c2Nhbjs1OzEzMTptQk96blkzZ1FuT3NZTFZaUVhfN25BOzEzNDptQk96blkzZ1FuT3NZTFZaUVhfN25BOzEzNTptQk96blkzZ1FuT3NZTFZaUVhfN25BOzEzMjptQk96blkzZ1FuT3NZTFZaUVhfN25BOzEzMzptQk96blkzZ1FuT3NZTFZaUVhfN25BOzE7dG90YWxfaGl0czoxMjs=
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1585'
+    body:
+      encoding: UTF-8
+      string: '{"_scroll_id":"c2NhbjswOzE7dG90YWxfaGl0czoxMjs=","took":1,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":12,"max_score":0.0,"hits":[{"_index":"some_index","_type":"some_type","_id":"irDfFcctSoWNXp4U3oHBuA","_score":0.0,"_source":{"title":"Book2","id":"id2"}},{"_index":"some_index","_type":"some_type","_id":"pZ9_z8MPScWFFACp2spW6Q","_score":0.0,"_source":{"title":"Book3","id":"id3"}},{"_index":"some_index","_type":"some_type","_id":"B1rWhq-CTDCt_kJrXfk8Ew","_score":0.0,"_source":{"title":"Book1","id":"id1"}},{"_index":"some_index","_type":"some_type","_id":"EnPrF47mRJiY1JKpp738-Q","_score":0.0,"_source":{"title":"Book2","id":"id2"}},{"_index":"some_index","_type":"some_type","_id":"id1","_score":0.0,"_source":{"title":"Book1","id":"id1"}},{"_index":"some_index","_type":"some_type","_id":"Book1","_score":0.0,"_source":{"title":"Book1","id":"id1"}},{"_index":"some_index","_type":"some_type","_id":"id2","_score":0.0,"_source":{"title":"Book2","id":"id2"}},{"_index":"some_index","_type":"some_type","_id":"Book2","_score":0.0,"_source":{"title":"Book2","id":"id2"}},{"_index":"some_index","_type":"some_type","_id":"0HppTzI7Tp-g5bzTsI7pLA","_score":0.0,"_source":{"title":"Book1","id":"id1"}},{"_index":"some_index","_type":"some_type","_id":"GonG1Fy7R0yUlwKT6n8N6A","_score":0.0,"_source":{"title":"Book3","id":"id3"}},{"_index":"some_index","_type":"some_type","_id":"id3","_score":0.0,"_source":{"title":"Book3","id":"id3"}},{"_index":"some_index","_type":"some_type","_id":"Book3","_score":0.0,"_source":{"title":"Book3","id":"id3"}}]}}'
+    http_version: 
+  recorded_at: Wed, 12 Aug 2015 09:42:24 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/_search/scroll?scroll=600s
+    body:
+      encoding: UTF-8
+      string: c2NhbjswOzE7dG90YWxfaGl0czoxMjs=
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '170'
+    body:
+      encoding: UTF-8
+      string: '{"_scroll_id":"c2NhbjswOzE7dG90YWxfaGl0czoxMjs=","took":0,"timed_out":false,"_shards":{"total":0,"successful":0,"failed":0},"hits":{"total":12,"max_score":0.0,"hits":[]}}'
+    http_version: 
+  recorded_at: Wed, 12 Aug 2015 09:42:24 GMT
+recorded_with: VCR 2.9.3
