@@ -1,22 +1,23 @@
-require File.expand_path("../lib/metacrunch/elasticsearch/version", __FILE__)
+# coding: utf-8
+lib = File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "metacrunch/elasticsearch/version"
 
-Gem::Specification.new do |s|
-  s.authors       = ["René Sprotte", "Michael Sievers"]
-  s.email         = "r.sprotte@ub.uni-paderborn.de"
-  s.summary       = %q{Elasticsearch tools for metacrunch}
-  s.description   = s.summary
-  s.homepage      = "http://github.com/ubpb/metacrunch-elasticsearch"
-  s.licenses      = ["MIT"]
+Gem::Specification.new do |spec|
+  spec.name          = "metacrunch-elasticsearch"
+  spec.version       = Metacrunch::Elasticsearch::VERSION
+  spec.authors       = ["René Sprotte", "Michael Sievers"]
+  spec.summary       = %q{Metacrunch elasticsearch package}
+  spec.homepage      = "http://github.com/ubpb/metacrunch-elasticsearch"
+  spec.licenses      = "MIT"
 
-  s.files         = `git ls-files`.split($\)
-  s.executables   = s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
-  s.name          = "metacrunch-elasticsearch"
-  s.require_paths = ["lib"]
-  s.version       = Metacrunch::Elasticsearch::VERSION
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.bindir        = "exe"
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
 
-  s.required_ruby_version = ">= 2.2.0"
-
-  s.add_dependency "elasticsearch", "~> 1.0"
-  s.add_dependency "metacrunch",    "~> 2.1"
+  spec.add_dependency "activesupport",   ">= 4.0.0"
+  spec.add_dependency "elasticsearch",   "~> 1.0"
+  spec.add_dependency "metacrunch",      "~> 2.1"
 end
+
