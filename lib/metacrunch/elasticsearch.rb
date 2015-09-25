@@ -1,11 +1,6 @@
 require "metacrunch"
 require "elasticsearch"
 
-begin
-  require "pry"
-rescue LoadError ; end
-
-
 module Metacrunch
   module Elasticsearch
     require_relative "./elasticsearch/uri"
