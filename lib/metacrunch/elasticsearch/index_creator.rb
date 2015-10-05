@@ -10,16 +10,17 @@ class Metacrunch::Elasticsearch::IndexCreator < Metacrunch::Processor
 
   attr_accessor :default_mapping
   attr_accessor :delete_existing_index
+  attr_accessor :logger
 
   def initialize(options = {})
     (@client_args = options).deep_symbolize_keys!
-    extract_options!(@client_args, :_client_options_, :default_mapping, :delete_existing_index)
+    extract_options!(@client_args, :_client_options_, :default_mapping, :delete_existing_index, :logger)
     raise ArgumentError.new("You have to supply an index name!") if @client_args[:index].blank?
   end
 
   def call(items = [], pipeline = nil)
     client = client_factory
-    logger = pipeline.try(:logger)
+    logger = pipeline.try(:logger) || @logger
 
     if client.indices.exists?(@client_args)
       if @delete_existing_index == true

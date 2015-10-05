@@ -12,15 +12,18 @@ class Metacrunch::Elasticsearch::Indexer < Metacrunch::Processor
   attr_accessor :callbacks
   attr_accessor :id_accessor
   attr_accessor :index
+  attr_accessor :logger
   attr_accessor :type
   
   def initialize(options = {})
     (@client_args = options).deep_symbolize_keys!
-    extract_options!(@client_args, :_client_options_, :bulk_size, :callbacks, :id_accessor, :index, :type)
+    extract_options!(@client_args, :_client_options_, :bulk_size, :callbacks, :id_accessor, :index, :logger, :type)
     raise ArgumentError.new("You have to supply an index name!") if @index.blank?
   end
 
-  def call(items, pipeline)
+  def call(items = [], pipeline = nil)
+    logger = pipeline.try(:logger) || @logger
+
     if (slice_size = @bulk_size || items.length) > 0
       client = client_factory
 
@@ -34,7 +37,7 @@ class Metacrunch::Elasticsearch::Indexer < Metacrunch::Processor
             client.bulk body: _body
           end
         rescue
-          pipeline.logger.info "Bulk index failed. Decreasing bulk size temporary and trying again."
+          logger.info "Bulk index failed. Decreasing bulk size temporary and trying again." if logger
 
           bodies = bodies.inject([]) do |_memo, _body|
             # Since we have to work with the bulk request body instead if the original items
@@ -47,7 +50,7 @@ class Metacrunch::Elasticsearch::Indexer < Metacrunch::Processor
         end
 
         bulk_responses.each do |_bulk_response|
-          log_items_indexed(pipeline.logger, _bulk_response["items"].length, client)
+          log_items_indexed(logger, _bulk_response["items"].length, client) if logger
 
           if after_indexed_callback = (@callbacks || {})[:after_indexed]
             _item_slice.zip(_bulk_response["items"]).each do |_item, _item_response|
