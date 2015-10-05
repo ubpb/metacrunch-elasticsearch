@@ -17,14 +17,14 @@ class Metacrunch::Elasticsearch::IndexCreator < Metacrunch::Processor
     raise ArgumentError.new("You have to supply an index name!") if @client_args[:index].blank?
   end
 
-  def call(items, pipeline)
+  def call(items = [], pipeline = nil)
     client = client_factory
-    logger = pipeline.logger
+    logger = pipeline.try(:logger)
 
     if client.indices.exists?(@client_args)
       if @delete_existing_index == true
         client.indices.delete(@client_args)
-        log_index_deleted(logger, @client_args[:index], client)
+        log_index_deleted(logger, @client_args[:index], client) if logger
       elsif @delete_existing_index == false
         return
       else
@@ -33,7 +33,7 @@ class Metacrunch::Elasticsearch::IndexCreator < Metacrunch::Processor
     end
 
     client.indices.create(@client_args)
-    log_index_created(logger, @client_args[:index], client)
+    log_index_created(logger, @client_args[:index], client) if logger
 
     if @default_mapping
       client.indices.put_mapping(
