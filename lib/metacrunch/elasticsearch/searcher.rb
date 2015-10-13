@@ -25,7 +25,7 @@ class Metacrunch::Elasticsearch::Searcher < Metacrunch::Processor
     @body = options.presence || DEFAULT_BODY
   end
 
-  def call(items, pipeline)
+  def call(items = [], pipeline = nil)
     @docs_enumerator ||= @bulk_size ? each_slice(@bulk_size) : [each.to_a].to_enum
 
     begin
