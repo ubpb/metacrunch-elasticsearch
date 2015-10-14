@@ -14,7 +14,7 @@ class Metacrunch::Elasticsearch::IndexCreator < Metacrunch::Processor
 
   def initialize(options = {})
     (@client_args = options).deep_symbolize_keys!
-    extract_options!(@client_args, :_client_options_, :default_mapping, :delete_existing_index, :logger)
+    extract_options!(@client_args, :_client_options_, :default_mapping, :delete_existing_index, :logger, :number_of_shards, :number_of_replicas)
     raise ArgumentError.new("You have to supply an index name!") if @client_args[:index].blank?
   end
 
@@ -33,7 +33,15 @@ class Metacrunch::Elasticsearch::IndexCreator < Metacrunch::Processor
       end
     end
 
-    client.indices.create(@client_args)
+    client.indices.create(@client_args.merge(
+      {
+        body: {
+          number_of_shards: @number_of_shards,
+          number_of_replicas: @number_of_replicas
+        }.compact
+      }
+    ))
+
     log_index_created(logger, @client_args[:index], client) if logger
 
     if @default_mapping
