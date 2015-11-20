@@ -3,6 +3,7 @@ require "elasticsearch"
 
 module Metacrunch
   module Elasticsearch
+    require_relative "./elasticsearch/cli"
     require_relative "./elasticsearch/index_creator"
     require_relative "./elasticsearch/indexer"
     require_relative "./elasticsearch/reader"
