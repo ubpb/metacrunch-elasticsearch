@@ -1,10 +1,9 @@
 require "elasticsearch"
-require "metacrunch/processor"
 require_relative "../elasticsearch"
 require_relative "./client_factory"
 require_relative "./options_helpers"
 
-class Metacrunch::Elasticsearch::Indexer < Metacrunch::Processor
+class Metacrunch::Elasticsearch::Indexer
   include Metacrunch::Elasticsearch::ClientFactory
   include Metacrunch::Elasticsearch::OptionsHelpers
 
@@ -14,15 +13,15 @@ class Metacrunch::Elasticsearch::Indexer < Metacrunch::Processor
   attr_accessor :index
   attr_accessor :logger
   attr_accessor :type
-  
+
   def initialize(options = {})
     (@client_args = options).deep_symbolize_keys!
     extract_options!(@client_args, :_client_options_, :bulk_size, :callbacks, :id_accessor, :index, :logger, :type)
     raise ArgumentError.new("You have to supply an index name!") if @index.blank?
   end
 
-  def call(items = [], pipeline = nil)
-    logger = pipeline.try(:logger) || @logger
+  def call(items = [])
+    logger = @logger
 
     if (slice_size = @bulk_size || items.length) > 0
       client = client_factory

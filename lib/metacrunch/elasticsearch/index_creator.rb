@@ -1,10 +1,9 @@
 require "elasticsearch"
-require "metacrunch/processor"
 require_relative "../elasticsearch"
 require_relative "./client_factory"
 require_relative "./options_helpers"
 
-class Metacrunch::Elasticsearch::IndexCreator < Metacrunch::Processor
+class Metacrunch::Elasticsearch::IndexCreator
   include Metacrunch::Elasticsearch::ClientFactory
   include Metacrunch::Elasticsearch::OptionsHelpers
 
@@ -19,9 +18,9 @@ class Metacrunch::Elasticsearch::IndexCreator < Metacrunch::Processor
     raise ArgumentError.new("You have to supply an index name!") if @client_args[:index].blank?
   end
 
-  def call(items = [], pipeline = nil)
+  def call(items = [])
     client = client_factory
-    logger = pipeline.try(:logger) || @logger
+    logger = @logger
 
     if client.indices.exists?(@client_args)
       if @delete_existing_index == true

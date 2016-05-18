@@ -1,10 +1,9 @@
 require "elasticsearch"
-require "metacrunch/processor"
 require_relative "../elasticsearch"
 require_relative "./client_factory"
 require_relative "./options_helpers"
 
-class Metacrunch::Elasticsearch::Searcher < Metacrunch::Processor
+class Metacrunch::Elasticsearch::Searcher
   include Enumerable
   include Metacrunch::Elasticsearch::ClientFactory
   include Metacrunch::Elasticsearch::OptionsHelpers
@@ -18,21 +17,16 @@ class Metacrunch::Elasticsearch::Searcher < Metacrunch::Processor
   attr_accessor :scan_size
   attr_accessor :scroll_expiry_time
   attr_accessor :type
-  
+
   def initialize(options = {})
     options.deep_symbolize_keys!
     extract_options!(options, :_client_options_, :bulk_size, :index, :scan_size, :scroll_expiry_time, :type)
     @body = options.presence || DEFAULT_BODY
   end
 
-  def call(items = [], pipeline = nil)
+  def call(items = [])
     @docs_enumerator ||= @bulk_size ? each_slice(@bulk_size) : [each.to_a].to_enum
-
-    begin
-      items.concat(@docs_enumerator.next)
-    rescue StopIteration
-      pipeline.terminate!
-    end
+    items.concat(@docs_enumerator.next)
   end
 
   def each
