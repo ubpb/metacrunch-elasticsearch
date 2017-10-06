@@ -78,9 +78,7 @@ It is not efficient to call Elasticsearch for every single record. Therefore we 
 ```ruby
 # my_job.metacrunch
 
-transformation ->(users) do
-  users
-end, buffer_size: 10
+transformation ->(users) { users }, buffer_size: 10
 ```
 
 If these transformations are in place you can now use the `Metacrunch::Elasticsearch::Destination` class as a destination.
