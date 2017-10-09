@@ -29,9 +29,9 @@ Usage
 
 *Note: For working examples on how to use this package check out our [demo repository](https://github.com/ubpb/metacrunch-demo).*
 
-### Source
+### `Metacrunch::Elasticsearch::Source`
 
-The `Metacrunch::Elasticsearch::Source` class can be used to read data from Elasticsearch into a metacrunch job.
+This class provides a metacrunch `source` implementation that can be used to read data from Elasticsearch into a metacrunch job.
 
 ```ruby
 # my_job.metacrunch
@@ -48,11 +48,12 @@ source Metacrunch::Elasticsearch::Source.new(elasticsearch, OPTIONS)
 * `:search_options`: A hash with search options (including your query) as described [here](https://github.com/elastic/elasticsearch-ruby/blob/master/elasticsearch-api/lib/elasticsearch/api/actions/search.rb). We have set some meaningful defaults though: `size: 100`, `scroll: 1m`, `sort: ["_doc"]`. Depending on your use-case it may be needed to modify `:size` and `:scroll` for optimal performance.
 * `:total_hits_callback`: You can set a `Proc` that gets called with the total number of hits your query will match. Use can use this callback to setup a progress bar for example. Defaults to `nil`.
 
-### Destination
 
-The `Metacrunch::Elasticsearch::Destination` class can be used to write data from a metacrunch job to Elasticsearch.
+### `Metacrunch::Elasticsearch::Destination`
 
-To use it, the data that gets passed to the destination, must be in a proper format. Therefore you need to setup a transformation.
+This class provides a metacrunch `destination` implementation that can be used to write data from a metacrunch job to Elasticsearch.
+
+The data that gets passed to the destination, must be in a proper format. You can use a transformation to transform your data before it reaches the destination.
 
 As `Metacrunch::Elasticsearch::Destination` utilizes the Elasticsearch bulk API, the expected format must match one of the available options for the `body`parameter described [here](https://github.com/elastic/elasticsearch-ruby/blob/master/elasticsearch-api/lib/elasticsearch/api/actions/bulk.rb). Please note that you can use the bulk API not only to index records. You can update or delete records as well.
 
