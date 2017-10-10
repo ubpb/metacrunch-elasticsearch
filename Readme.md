@@ -37,7 +37,7 @@ This class provides a metacrunch `source` implementation that can be used to rea
 # my_job.metacrunch
 
 # Create a Elasticsearch connection 
-elasticsearch = ::Elasticsearch::Client.new(...)
+elasticsearch = Elasticsearch::Client.new(...)
 
 # Set the source
 source Metacrunch::Elasticsearch::Source.new(elasticsearch, OPTIONS)
