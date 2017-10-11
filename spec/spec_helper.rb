@@ -1,8 +1,11 @@
 require "pry" if !ENV["CI"]
-require "simplecov"
-require "metacrunch/elasticsearch"
 
-SimpleCov.start
+require "simplecov"
+SimpleCov.start do
+  add_filter %r{^/spec/}
+end
+
+require "metacrunch/elasticsearch"
 
 RSpec.configure do |config|
 end
