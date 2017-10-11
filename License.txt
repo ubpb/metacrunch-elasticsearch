@@ -1,4 +1,4 @@
-Copyright (c) 2013 René Sprotte, Michael Sievers
+Copyright (c) 2013 René Sprotte
 
 MIT License
 

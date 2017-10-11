@@ -97,3 +97,7 @@ destination Metacrunch::Elasticsearch::Destination.new(elasticsearch [, OPTIONS]
 * `:result_callback`: You can set a `Proc` that gets called with the result from the bulk operation. Defaults to `nil`.
 * `:bulk_options`: A hash of options for the Eleasticsearch bulk API as described [here](https://github.com/elastic/elasticsearch-ruby/blob/master/elasticsearch-api/lib/elasticsearch/api/actions/bulk.rb). Setting `body` here will be ignored. Defaults to `{}`.
 
+License
+-------
+
+metacrunch-elasticsearch is available at [github](https://github.com/ubpb/metacrunch-elasticsearch) under [MIT license](https://github.com/ubpb/metacrunch-elasticsearch/blob/master/License.txt).
