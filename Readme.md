@@ -3,7 +3,8 @@ metacrunch-elasticsearch
 
 [![Gem Version](https://badge.fury.io/rb/metacrunch-elasticsearch.svg)](http://badge.fury.io/rb/metacrunch-elasticsearch)
 [![Code Climate](https://codeclimate.com/github/ubpb/metacrunch-elasticsearch/badges/gpa.svg)](https://codeclimate.com/github/ubpb/metacrunch-elasticsearch)
-[![Build Status](https://travis-ci.org/ubpb/metacrunch-elasticsearch.svg)](https://travis-ci.org/ubpb/metacrunch-elasticsearch)
+[![Test Coverage](https://codeclimate.com/github/ubpb/metacrunch-elasticsearch/badges/coverage.svg)](https://codeclimate.com/github/ubpb/metacrunch-elasticsearch/coverage)
+[![CircleCI](https://circleci.com/gh/ubpb/metacrunch-elasticsearch.svg?style=svg)](https://circleci.com/gh/ubpb/metacrunch-elasticsearch)
 
 This is the official [Elasticsearch](https://www.elastic.co) package for the [metacrunch ETL toolkit](https://github.com/ubpb/metacrunch).
 
