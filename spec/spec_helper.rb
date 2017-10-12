@@ -5,6 +5,7 @@ SimpleCov.start do
   add_filter %r{^/spec/}
 end
 
+require "faker"
 require "metacrunch/elasticsearch"
 
 RSpec.configure do |config|

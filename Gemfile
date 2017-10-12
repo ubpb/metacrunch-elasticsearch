@@ -12,6 +12,7 @@ group :development do
 end
 
 group :test do
+  gem "faker",                 ">= 1.8.4"
   gem "rspec",                 ">= 3.5.0", "< 4.0.0"
   gem "rspec_junit_formatter", ">= 0.3.0"
   gem "simplecov",             ">= 0.15.0"
