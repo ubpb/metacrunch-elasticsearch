@@ -3,23 +3,25 @@
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
 version: 2
-services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.3.2
-    environment:
-      - "transport.host=localhost"
-      - "bootstrap.system_call_filter=false"
-    ports:
-      - "9200:9200"
 jobs:
   build:
     docker:
       - image: circleci/ruby:2.4.1-node-browsers
+      - image: docker.elastic.co/elasticsearch/elasticsearch:5.6.3
+        environment:
+          - "discovery.type=single-node"
+          - "xpack.security.enabled=false"
+          - "http.host=0.0.0.0"
+          - "transport.host=127.0.0.1"
 
     working_directory: ~/repo
 
     steps:
       - checkout
+
+      - run:
+          name: Waiting for elasticsearch to start up (30 sec.)
+          command: sleep 30
 
       - run:
           name: Install dependencies
