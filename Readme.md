@@ -14,7 +14,7 @@ Installation
 Include the gem in your `Gemfile`
 
 ```ruby
-gem "metacrunch-elasticsearch", "~> 4.0.0"
+gem "metacrunch-elasticsearch", "~> 4.0.1"
 ```
 
 and run `$ bundle install` to install it.
