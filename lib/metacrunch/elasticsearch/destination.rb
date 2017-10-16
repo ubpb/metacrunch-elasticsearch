@@ -4,7 +4,7 @@ module Metacrunch
   class Elasticsearch::Destination
 
     DEFAULT_OPTIONS = {
-      raise_on_result_errors: false,
+      raise_on_result_errors: false, # deprecated
       result_callback: nil,
       bulk_options: {}
     }
@@ -12,6 +12,11 @@ module Metacrunch
     def initialize(elasticsearch_client, options = {})
       @client = elasticsearch_client
       @options = DEFAULT_OPTIONS.deep_merge(options)
+
+      @deprecator = ActiveSupport::Deprecation.new("5.0.0", "metacrunch-elasticsearch")
+      if @options[:raise_on_result_errors]
+        @deprecator.deprecation_warning("Option :raise_on_result_errors")
+      end
     end
 
     def write(data)
@@ -22,25 +27,12 @@ module Metacrunch
       bulk_options[:body] = data
       result = @client.bulk(bulk_options)
 
-      # Raise an exception if one of the results produced an error and the user wants to know about it
-      raise DestinationError.new(errors: result["errors"]) if result["errors"] && @options[:raise_on_result_errors]
-
       # if the user provided a callback proc, call it
       @options[:result_callback].call(result) if @options[:result_callback]&.respond_to?(:call)
     end
 
     def close
       # noop
-    end
-
-  end
-
-  class Elasticsearch::DestinationError < StandardError
-
-    attr_reader :errors
-
-    def initialize(msg = nil, errors:)
-      @errors = errors
     end
 
   end

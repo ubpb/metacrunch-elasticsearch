@@ -3,7 +3,6 @@ describe Metacrunch::Elasticsearch::Destination do
   es_index = "metacrunch-elasticsearch-rspec"
   elasticsearch = Elasticsearch::Client.new(log: false)
 
-  # Prepare some test data
   before do
     # Delete index if it exists
     if elasticsearch.indices.exists?(index: es_index)
@@ -45,6 +44,14 @@ describe Metacrunch::Elasticsearch::Destination do
       expect(result).to_not be_nil
       expect(result["errors"]).to_not be_nil
       expect(result["errors"]).to eq(false)
+    end
+  end
+
+  context "when :raise_on_result_errors = true" do
+    it "prints out a deprecation warning" do
+      expect {
+        Metacrunch::Elasticsearch::Destination.new(elasticsearch, raise_on_result_errors: true)
+      }.to output(/DEPRECATION WARNING/).to_stderr
     end
   end
 end

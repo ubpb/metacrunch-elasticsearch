@@ -94,7 +94,6 @@ destination Metacrunch::Elasticsearch::Destination.new(elasticsearch [, OPTIONS]
 
 **Options**
 
-* `:raise_on_result_errors`: If set to `true` an error is raised if one of the bulk operations return with an error. Defaults to `false`.
 * `:result_callback`: You can set a `Proc` that gets called with the result from the bulk operation. Defaults to `nil`.
 * `:bulk_options`: A hash of options for the Eleasticsearch bulk API as described [here](https://github.com/elastic/elasticsearch-ruby/blob/master/elasticsearch-api/lib/elasticsearch/api/actions/bulk.rb). Setting `body` here will be ignored. Defaults to `{}`.
 
