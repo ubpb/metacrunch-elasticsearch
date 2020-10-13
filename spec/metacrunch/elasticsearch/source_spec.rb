@@ -11,11 +11,10 @@ describe Metacrunch::Elasticsearch::Source do
     end
 
     # Index 100 dummy users
-    elasticsearch.bulk(body: 100.times.map { |i|
+    elasticsearch.bulk(refresh: :wait_for, body: 100.times.map { |i|
       {
         index: {
           _index: es_index,
-          _type: "users",
           _id: i+1,
           data: {
             name: Faker::Name.name,
@@ -24,9 +23,6 @@ describe Metacrunch::Elasticsearch::Source do
         }
       }
     })
-
-    # Flush / commit index and make users immediately available to search
-    elasticsearch.indices.flush(index: [es_index])
   end
 
   total_hits = 0
@@ -37,7 +33,6 @@ describe Metacrunch::Elasticsearch::Source do
       search_options: {
         size: 50,
         index: es_index,
-        type: "users",
         body: {
           query: {
             match_all: {}

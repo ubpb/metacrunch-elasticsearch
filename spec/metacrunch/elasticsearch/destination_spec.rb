@@ -26,7 +26,6 @@ describe Metacrunch::Elasticsearch::Destination do
       {
         index: {
           _index: es_index,
-          _type: "users",
           _id: i+1,
           data: {
             name: Faker::Name.name,

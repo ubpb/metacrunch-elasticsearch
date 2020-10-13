@@ -8,13 +8,15 @@ metacrunch-elasticsearch
 
 This is the official [Elasticsearch](https://www.elastic.co) package for the [metacrunch ETL toolkit](https://github.com/ubpb/metacrunch).
 
+*NOTE: metacrunch-elasticsearch 5.x requires Elasticsearch 7.x. For older versions of Elasticsearch try metacrunch-elasticsearch 4.x*
+
 Installation
 ------------
 
 Include the gem in your `Gemfile`
 
 ```ruby
-gem "metacrunch-elasticsearch", "~> 4.1.0"
+gem "metacrunch-elasticsearch", "~> 5.0.0"
 ```
 
 and run `$ bundle install` to install it.
@@ -67,7 +69,6 @@ transformation ->(data) do
   {
     index: {
       _index: "my-index",
-      _type: "my-type",
       _id: data.delete(:id),
       data: data
     }

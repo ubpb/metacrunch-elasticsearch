@@ -41,8 +41,8 @@ module Metacrunch
   private
 
     def call_total_hits_callback(result)
-      if @options[:total_hits_callback]&.respond_to?(:call) && result["hits"]["total"]
-        @options[:total_hits_callback].call(result["hits"]["total"])
+      if @options[:total_hits_callback]&.respond_to?(:call) && total = result.dig("hits", "total", "value")
+        @options[:total_hits_callback].call(total)
       end
     end
 
