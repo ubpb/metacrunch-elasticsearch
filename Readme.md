@@ -6,6 +6,10 @@ metacrunch-elasticsearch
 [![Test Coverage](https://codeclimate.com/github/ubpb/metacrunch-elasticsearch/badges/coverage.svg)](https://codeclimate.com/github/ubpb/metacrunch-elasticsearch/coverage)
 [![CircleCI](https://circleci.com/gh/ubpb/metacrunch-elasticsearch.svg?style=svg)](https://circleci.com/gh/ubpb/metacrunch-elasticsearch)
 
+> **metacrunch-elasticsearch belongs to metacrunch 4.x** and does not work with metacrunch 5 yet. It will be migrated
+> into the [metacrunch repository](https://github.com/ubpb/metacrunch), where metacrunch 5 and its extension gems are
+> developed. metacrunch 5 is not released yet.
+
 This is the official [Elasticsearch](https://www.elastic.co) package for the [metacrunch ETL toolkit](https://github.com/ubpb/metacrunch).
 
 *NOTE: metacrunch-elasticsearch 5.x requires Elasticsearch 7.x. For older versions of Elasticsearch try metacrunch-elasticsearch 4.x*
